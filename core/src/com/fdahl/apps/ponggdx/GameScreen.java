@@ -1,5 +1,6 @@
 package com.fdahl.apps.ponggdx;
 
+import com.fdahl.apps.ponggdx.objects.Ball;
 import com.fdahl.apps.ponggdx.objects.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -21,6 +22,7 @@ public class GameScreen extends ScreenAdapter {
 
     // Game Objects
     private Player player;
+    private Ball ball;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -31,6 +33,7 @@ public class GameScreen extends ScreenAdapter {
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         this.player = new Player(16, PongGdx.getInstance().getScreenHeight()/2, this);
+        this.ball = new Ball(this);
     }
 
     public void update() {
@@ -38,9 +41,14 @@ public class GameScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         this.player.update();
+        this.ball.update();
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            ball.reset();
         }
     }
 
@@ -55,6 +63,7 @@ public class GameScreen extends ScreenAdapter {
 
         // All texture renders get called here
         this.player.render(batch);
+        this.ball.render(batch);
 
         batch.end();
     }

@@ -5,8 +5,8 @@ import com.badlogic.gdx.Input;
 import com.fdahl.apps.ponggdx.GameScreen;
 
 public class Player extends PlayerPaddle {
-    public Player(float x, float y, GameScreen gameScreen) {
-        super(x, y, gameScreen);
+    public Player(float x, float y, GameScreen gameScreen, int scoreXPos, int scoreYPos) {
+        super(x, y, gameScreen, scoreXPos, scoreYPos);
     }
 
     @Override

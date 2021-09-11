@@ -4,8 +4,8 @@ import com.fdahl.apps.ponggdx.GameScreen;
 
 public class PlayerAI extends PlayerPaddle {
 
-    public PlayerAI(float x, float y, GameScreen gameScreen) {
-        super(x, y, gameScreen);
+    public PlayerAI(float x, float y, GameScreen gameScreen, int scoreXPos, int scoreYPos) {
+        super(x, y, gameScreen, scoreXPos, scoreYPos);
     }
 
     @Override

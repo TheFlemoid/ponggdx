@@ -41,9 +41,11 @@ public class GameScreen extends ScreenAdapter {
         this.world.setContactListener(gameContactListener);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
-        this.player = new Player(16, PongGdx.getInstance().getScreenHeight()/2, this);
+        this.player = new Player(16, PongGdx.getInstance().getScreenHeight()/2, this, 20,
+                PongGdx.getInstance().getScreenHeight()-20);
         this.playerAi = new PlayerAI(PongGdx.getInstance().getScreenWidth() - 16,
-                PongGdx.getInstance().getScreenHeight()/2, this);
+                PongGdx.getInstance().getScreenHeight()/2, this,
+                PongGdx.getInstance().getScreenWidth()-70, PongGdx.getInstance().getScreenHeight()-20);
         this.ball = new Ball(this);
         this.wallTop = new Wall(32, this);
         this.wallBottom = new Wall(PongGdx.getInstance().getScreenHeight() - 32, this);
@@ -78,15 +80,14 @@ public class GameScreen extends ScreenAdapter {
         batch.begin();
 
         // All texture renders get called here
+        // Render the walls before the paddles, that way the score gets rendered on top of the wall
+        this.wallTop.render(batch);
+        this.wallBottom.render(batch);
         this.player.render(batch);
         this.playerAi.render(batch);
         this.ball.render(batch);
-        this.wallTop.render(batch);
-        this.wallBottom.render(batch);
 
         batch.end();
-
-        this.box2DDebugRenderer.render(world, camera.combined.scl(Const.PPM));
     }
 
     public World getWorld() {

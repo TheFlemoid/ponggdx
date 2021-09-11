@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.fdahl.apps.ponggdx.helper.ContactType;
+import com.fdahl.apps.ponggdx.views.GameScreen;
 
 public class GameContactListener implements ContactListener {
 

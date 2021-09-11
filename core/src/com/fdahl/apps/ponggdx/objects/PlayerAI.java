@@ -1,6 +1,6 @@
 package com.fdahl.apps.ponggdx.objects;
 
-import com.fdahl.apps.ponggdx.GameScreen;
+import com.fdahl.apps.ponggdx.views.GameScreen;
 
 public class PlayerAI extends PlayerPaddle {
 

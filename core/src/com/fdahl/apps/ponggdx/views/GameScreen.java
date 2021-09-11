@@ -1,5 +1,7 @@
-package com.fdahl.apps.ponggdx;
+package com.fdahl.apps.ponggdx.views;
 
+import com.fdahl.apps.ponggdx.GameContactListener;
+import com.fdahl.apps.ponggdx.PongGdx;
 import com.fdahl.apps.ponggdx.objects.Ball;
 import com.fdahl.apps.ponggdx.objects.Player;
 import com.fdahl.apps.ponggdx.objects.PlayerAI;
@@ -22,7 +24,6 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private World world;
     private GameContactListener gameContactListener;
-    private Box2DDebugRenderer box2DDebugRenderer;
 
     // Game Objects
     private Player player;
@@ -39,7 +40,6 @@ public class GameScreen extends ScreenAdapter {
         this.world = new World(new Vector2(0,0), false);
         this.gameContactListener = new GameContactListener(this);
         this.world.setContactListener(gameContactListener);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         this.player = new Player(16, PongGdx.getInstance().getScreenHeight()/2, this, 20,
                 PongGdx.getInstance().getScreenHeight()-20);
@@ -66,6 +66,8 @@ public class GameScreen extends ScreenAdapter {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            player.setScore(0);
+            playerAi.setScore(0);
             ball.reset();
         }
     }

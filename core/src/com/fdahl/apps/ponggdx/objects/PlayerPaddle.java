@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.fdahl.apps.ponggdx.GameScreen;
+import com.fdahl.apps.ponggdx.views.GameScreen;
 import com.fdahl.apps.ponggdx.helper.BodyHelper;
 import com.fdahl.apps.ponggdx.helper.Const;
 import com.fdahl.apps.ponggdx.helper.ContactType;
@@ -34,7 +34,7 @@ public abstract class PlayerPaddle {
         this.speed = 6;
         this.width = 10;
         this.height = 64;
-        this.texture = new Texture("spritesheets/color.png");
+        this.texture = new Texture("sprites/color.png");
         this.pressStartFont = new BitmapFont(Gdx.files.internal("fonts/press_start.fnt"), false);
         pressStartFont.setColor(0,0,0,1);
         this.scoreXPos = scoreXPos;

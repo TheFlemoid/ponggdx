@@ -2,7 +2,7 @@ package com.fdahl.apps.ponggdx.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.fdahl.apps.ponggdx.GameScreen;
+import com.fdahl.apps.ponggdx.views.GameScreen;
 
 public class Player extends PlayerPaddle {
     public Player(float x, float y, GameScreen gameScreen, int scoreXPos, int scoreYPos) {

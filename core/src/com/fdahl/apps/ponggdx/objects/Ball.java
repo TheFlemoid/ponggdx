@@ -3,7 +3,7 @@ package com.fdahl.apps.ponggdx.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.fdahl.apps.ponggdx.GameScreen;
+import com.fdahl.apps.ponggdx.views.GameScreen;
 import com.fdahl.apps.ponggdx.PongGdx;
 import com.fdahl.apps.ponggdx.helper.BodyHelper;
 import com.fdahl.apps.ponggdx.helper.Const;
@@ -29,7 +29,7 @@ public class Ball {
         this.velX = getRandomDirection();
         this.velY = getRandomDirection();
 
-        this.texture = new Texture("spritesheets/color.png");
+        this.texture = new Texture("sprites/color.png");
         this.width = 20;
         this.height = 20;
 

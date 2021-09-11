@@ -29,9 +29,9 @@ public class Ball {
         this.velX = getRandomDirection();
         this.velY = getRandomDirection();
 
-        this.texture = new Texture("color.png");
-        this.width = 32;
-        this.height = 32;
+        this.texture = new Texture("spritesheets/color.png");
+        this.width = 20;
+        this.height = 20;
 
         this.body = BodyHelper.createBody(x, y, width, height, false, 0,
                 gameScreen.getWorld(), ContactType.BALL);
@@ -47,7 +47,18 @@ public class Ball {
 
         this.body.setLinearVelocity(velX * speed, velY * speed);
 
-        // Update scoring here
+        // Scoring
+        if(x < 0) {
+            // Player AI has scored
+            gameScreen.getPlayerAi().score();
+            reset();
+        }
+
+        if(x > PongGdx.getInstance().getScreenWidth()) {
+            // Player has scored
+            gameScreen.getPlayer().score();
+            reset();
+        }
     }
 
     public void reset() {
@@ -60,5 +71,34 @@ public class Ball {
 
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, width, height);
+    }
+
+    /**
+     * Reverse the balls X velocity
+     */
+    public void reverseVelX() {
+        this.velX *= -1;
+    }
+
+    /**
+     * Reverse the balls Y velocity
+     */
+    public void reverseVelY() {
+        this.velY *= -1;
+    }
+
+    /**
+     * Increase speed of ball by 10%
+     */
+    public void incSpeed() {
+        speed *= 1.1f;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

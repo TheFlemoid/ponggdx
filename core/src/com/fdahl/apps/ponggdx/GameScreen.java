@@ -2,6 +2,9 @@ package com.fdahl.apps.ponggdx;
 
 import com.fdahl.apps.ponggdx.objects.Ball;
 import com.fdahl.apps.ponggdx.objects.Player;
+import com.fdahl.apps.ponggdx.objects.PlayerAI;
+import com.fdahl.apps.ponggdx.objects.Wall;
+import com.fdahl.apps.ponggdx.helper.Const;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,11 +21,15 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private World world;
+    private GameContactListener gameContactListener;
     private Box2DDebugRenderer box2DDebugRenderer;
 
     // Game Objects
     private Player player;
+    private PlayerAI playerAi;
     private Ball ball;
+    private Wall wallTop;
+    private Wall wallBottom;
 
     public GameScreen(OrthographicCamera camera) {
         this.camera = camera;
@@ -30,18 +37,27 @@ public class GameScreen extends ScreenAdapter {
                 (PongGdx.getInstance().getScreenHeight()/2), 0));
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0,0), false);
+        this.gameContactListener = new GameContactListener(this);
+        this.world.setContactListener(gameContactListener);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
 
         this.player = new Player(16, PongGdx.getInstance().getScreenHeight()/2, this);
+        this.playerAi = new PlayerAI(PongGdx.getInstance().getScreenWidth() - 16,
+                PongGdx.getInstance().getScreenHeight()/2, this);
         this.ball = new Ball(this);
+        this.wallTop = new Wall(32, this);
+        this.wallBottom = new Wall(PongGdx.getInstance().getScreenHeight() - 32, this);
     }
 
     public void update() {
         world.step(1/60f, 6, 2);
-        batch.setProjectionMatrix(camera.combined);
 
+        this.camera.update();
         this.player.update();
+        this.playerAi.update();
         this.ball.update();
+
+        batch.setProjectionMatrix(camera.combined);
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -63,12 +79,29 @@ public class GameScreen extends ScreenAdapter {
 
         // All texture renders get called here
         this.player.render(batch);
+        this.playerAi.render(batch);
         this.ball.render(batch);
+        this.wallTop.render(batch);
+        this.wallBottom.render(batch);
 
         batch.end();
+
+        this.box2DDebugRenderer.render(world, camera.combined.scl(Const.PPM));
     }
 
     public World getWorld() {
         return world;
+    }
+
+    public Ball getBall() {
+        return ball;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public PlayerAI getPlayerAi() {
+        return playerAi;
     }
 }

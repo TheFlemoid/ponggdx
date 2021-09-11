@@ -19,8 +19,6 @@ public class PongGdx extends Game {
 	}
 
 	public static PongGdx getInstance() {
-		PongGdx retVal = null;
-
 		if (INSTANCE == null) {
 			INSTANCE = new PongGdx();
 		}

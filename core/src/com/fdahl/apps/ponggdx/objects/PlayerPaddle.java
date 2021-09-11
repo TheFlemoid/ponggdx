@@ -28,7 +28,7 @@ public abstract class PlayerPaddle {
         this.speed = 6;
         this.width = 10;
         this.height = 64;
-        this.texture = new Texture("color.png");
+        this.texture = new Texture("spritesheets/color.png");
 
         this.body = BodyHelper.createBody(x, y, width, height, false, 10000,
                 gameScreen.getWorld(), ContactType.PLAYER);
@@ -42,5 +42,9 @@ public abstract class PlayerPaddle {
 
     public void render(SpriteBatch batch) {
         batch.draw(texture, x, y, width, height);
+    }
+
+    public void score() {
+        this.score++;
     }
 }

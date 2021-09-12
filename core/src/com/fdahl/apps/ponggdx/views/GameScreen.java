@@ -69,6 +69,7 @@ public class GameScreen extends ScreenAdapter {
             player.setScore(0);
             playerAi.setScore(0);
             ball.reset();
+            PongGdx.getInstance().changeScreen(PongGdx.MENU);
         }
     }
 
@@ -90,6 +91,23 @@ public class GameScreen extends ScreenAdapter {
         this.ball.render(batch);
 
         batch.end();
+    }
+
+    public void setGameDifficulty(int difficultyLevel) {
+        switch(difficultyLevel) {
+            case PongGdx.EASY:
+                playerAi.setSpeed(6);
+                break;
+            case PongGdx.MID:
+                playerAi.setSpeed(10);
+                break;
+            case PongGdx.HARD:
+                playerAi.setSpeed(15);
+                break;
+            default:
+                playerAi.setSpeed(6);
+                break;
+        }
     }
 
     public World getWorld() {

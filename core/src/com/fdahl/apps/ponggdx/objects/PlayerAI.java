@@ -24,4 +24,8 @@ public class PlayerAI extends PlayerPaddle {
 
         body.setLinearVelocity(0, velY * speed);
     }
+
+    public void setSpeed(int newSpeed) {
+        this.speed = newSpeed;
+    }
 }

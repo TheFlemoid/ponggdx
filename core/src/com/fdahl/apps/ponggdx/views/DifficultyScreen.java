@@ -15,16 +15,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class MenuScreen implements Screen {
+public class DifficultyScreen implements Screen {
     private Stage stage;
     private Skin skin;
-    private Label titleLabel;
+    private Label difficultyLabel;
     private Sound clickSound;
 
-    public MenuScreen() {
+    public DifficultyScreen() {
         skin = new Skin(Gdx.files.internal("skins/pong_skin.json"));
         stage = new Stage(new ScreenViewport());
-        titleLabel = new Label("Pong GDX!", skin);
+        difficultyLabel = new Label("Difficulty", skin);
         this.clickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/button_clicked.wav"));
     }
 
@@ -37,33 +37,56 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
         Gdx.input.setInputProcessor(stage);
 
-        //Create buttons for the menu
-        TextButton play = new TextButton("PLAY", skin);
-        TextButton exit = new TextButton("EXIT", skin);
+        // Create buttons for the menu
+        TextButton easy = new TextButton("EASY", skin);
+        TextButton mid = new TextButton("MID", skin);
+        TextButton hard = new TextButton("HARD", skin);
+        TextButton back = new TextButton("BACK", skin);
 
-        // Add listeners for all buttons
-        play.addListener(new ChangeListener() {
+        easy.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 clickSound.play();
-                PongGdx.getInstance().changeScreen(PongGdx.DIFFICULTY_SELECT);
+                PongGdx.getInstance().setGameDifficulty(PongGdx.EASY);
+                PongGdx.getInstance().changeScreen(PongGdx.APPLICATION);
             }
         });
 
-        exit.addListener(new ChangeListener() {
-           @Override
-           public void changed(ChangeEvent event, Actor actor) {
-               clickSound.play();
-               Gdx.app.exit();
-           }
+        mid.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                clickSound.play();
+                PongGdx.getInstance().setGameDifficulty(PongGdx.MID);
+                PongGdx.getInstance().changeScreen(PongGdx.APPLICATION);
+            }
         });
 
-        // Add buttons to the Scene2D table
-        table.add(titleLabel);
+        hard.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                clickSound.play();
+                PongGdx.getInstance().setGameDifficulty(PongGdx.HARD);
+                PongGdx.getInstance().changeScreen(PongGdx.APPLICATION);
+            }
+        });
+
+        back.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                clickSound.play();
+                PongGdx.getInstance().changeScreen(PongGdx.MENU);
+            }
+        });
+
+        table.add(difficultyLabel);
         table.row().pad(30, 0, 10, 0);
-        table.add(play);
+        table.add(easy);
         table.row().pad(10, 0, 10, 0);
-        table.add(exit);
+        table.add(mid);
+        table.row().pad(10, 0, 10, 0);
+        table.add(hard);
+        table.row().pad(10, 0, 10, 0);
+        table.add(back);
     }
 
     @Override

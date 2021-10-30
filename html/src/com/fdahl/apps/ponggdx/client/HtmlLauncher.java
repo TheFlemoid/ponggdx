@@ -1,9 +1,11 @@
 package com.fdahl.apps.ponggdx.client;
 
+import com.fdahl.apps.ponggdx.PongGdx;
+import com.fdahl.apps.ponggdx.helper.GameType;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.fdahl.apps.ponggdx.PongGdx;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -17,6 +19,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new PongGdx();
+                return new PongGdx(GameType.HTTP);
         }
 }

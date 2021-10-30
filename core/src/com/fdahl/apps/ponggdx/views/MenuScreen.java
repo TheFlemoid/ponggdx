@@ -1,8 +1,10 @@
 package com.fdahl.apps.ponggdx.views;
 
 import com.fdahl.apps.ponggdx.PongGdx;
+import com.fdahl.apps.ponggdx.helper.GameType;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class MenuScreen implements Screen {
+public class MenuScreen implements Screen, InputProcessor {
     private Stage stage;
     private Skin skin;
     private Label titleLabel;
@@ -63,7 +65,10 @@ public class MenuScreen implements Screen {
         table.row().pad(30, 0, 10, 0);
         table.add(play);
         table.row().pad(10, 0, 10, 0);
-        table.add(exit);
+        // Don't add the exit button if this is an HTTP game session, as the exit call won't do anything
+        if(PongGdx.getInstance().getGameType() != GameType.HTTP) {
+            table.add(exit);
+        }
     }
 
     @Override
@@ -98,5 +103,46 @@ public class MenuScreen implements Screen {
     public void dispose() {
         skin.dispose();
         stage.dispose();
+    }
+
+    // The below methods are Overrides needed for the implementation of InputProcessor
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }

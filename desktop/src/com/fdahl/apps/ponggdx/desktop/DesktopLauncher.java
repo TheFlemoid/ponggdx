@@ -1,8 +1,10 @@
 package com.fdahl.apps.ponggdx.desktop;
 
+import com.fdahl.apps.ponggdx.PongGdx;
+import com.fdahl.apps.ponggdx.helper.GameType;
+
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.fdahl.apps.ponggdx.PongGdx;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -14,6 +16,6 @@ public class DesktopLauncher {
 
 		config.setWindowedMode(960, 640);
 
-		new Lwjgl3Application(new PongGdx(), config);
+		new Lwjgl3Application(new PongGdx(GameType.DESKTOP), config);
 	}
 }

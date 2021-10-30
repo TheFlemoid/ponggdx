@@ -1,11 +1,13 @@
 package com.fdahl.apps.ponggdx;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.fdahl.apps.ponggdx.helper.GameType;
 import com.fdahl.apps.ponggdx.views.DifficultyScreen;
 import com.fdahl.apps.ponggdx.views.GameScreen;
 import com.fdahl.apps.ponggdx.views.MenuScreen;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class PongGdx extends Game {
 	// These are enumerations for describing each game screen
@@ -19,6 +21,7 @@ public class PongGdx extends Game {
 	public static final int HARD = 2;
 
 	public static PongGdx INSTANCE;
+	private GameType gameType;
 	private int screenWidth;
 	private int screenHeight;
 	private OrthographicCamera orthographicCamera;
@@ -26,15 +29,14 @@ public class PongGdx extends Game {
 	private MenuScreen menuScreen;
 	private DifficultyScreen difficultyScreen;
 
-	public PongGdx() {
+	public PongGdx(GameType gameType) {
 		INSTANCE = this;
+		this.gameType = gameType;
 	}
 
 	public static PongGdx getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new PongGdx();
-		}
-
+		// Not null checking here, as we don't know the GameType to use to make a new instance.
+		// If this returns null, something serious has gone wrong.
 		return INSTANCE;
 	}
 
@@ -57,18 +59,21 @@ public class PongGdx extends Game {
 				if(menuScreen == null) {
 					menuScreen = new MenuScreen();
 				}
+				Gdx.input.setInputProcessor(menuScreen);
 				this.setScreen(menuScreen);
 				break;
 			case APPLICATION:
 				if(gameScreen == null) {
 					gameScreen = new GameScreen(orthographicCamera);
 				}
+				Gdx.input.setInputProcessor(gameScreen);
 				this.setScreen(gameScreen);
 				break;
 			case DIFFICULTY_SELECT:
 				if(difficultyScreen == null) {
 					difficultyScreen = new DifficultyScreen();
 				}
+				Gdx.input.setInputProcessor(difficultyScreen);
 				this.setScreen(difficultyScreen);
 			default:
 				break;
@@ -85,5 +90,9 @@ public class PongGdx extends Game {
 
 	public void setGameDifficulty(final int newDifficultyLevel) {
 		gameScreen.setGameDifficulty(newDifficultyLevel);
+	}
+
+	public GameType getGameType() {
+		return gameType;
 	}
 }

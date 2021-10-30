@@ -9,6 +9,7 @@ import com.fdahl.apps.ponggdx.objects.Wall;
 import com.fdahl.apps.ponggdx.helper.Const;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -19,7 +20,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter implements InputProcessor {
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private World world;
@@ -61,11 +62,7 @@ public class GameScreen extends ScreenAdapter {
 
         batch.setProjectionMatrix(camera.combined);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             player.setScore(0);
             playerAi.setScore(0);
             ball.reset();
@@ -124,5 +121,46 @@ public class GameScreen extends ScreenAdapter {
 
     public PlayerAI getPlayerAi() {
         return playerAi;
+    }
+
+    // The below methods are Overrides needed for the implementation of InputProcessor
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }
